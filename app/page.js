@@ -1,5 +1,5 @@
+// Importing necessary dependencies from React and custom components
 "use client";
-
 import { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -24,22 +24,25 @@ import Modal from "@/components/ui/modal";
 import usePokemonStore from '@/stores/pokemonStore';
 import { Progress } from "@/components/ui/progress";
 
+// Defining the main functional component
 export default function Home() {
-  const [pokemonData, setPokemonData] = useState([]);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [page, setPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(0);
-  const [selectedPokemon, setSelectedPokemon] = useState(null);
-  const { caughtPokemons, catchPokemon, releasePokemon } = usePokemonStore();
-  const [showCaughtPokemon, setShowCaughtPokemon] = useState(false);
+   // State variables initialization
+  const [pokemonData, setPokemonData] = useState([]); // Holds fetched Pokemon data
+  const [searchTerm, setSearchTerm] = useState(""); // Holds the search term entered by the user
+  const [page, setPage] = useState(1);// Holds the current page number
+  const [totalPages, setTotalPages] = useState(0);// Holds the total number of pages
+  const [selectedPokemon, setSelectedPokemon] = useState(null);// Holds details of the selected Pokemon
+  const { caughtPokemons, catchPokemon, releasePokemon } = usePokemonStore();// Custom hook to manage caught Pokemon
+  const [showCaughtPokemon, setShowCaughtPokemon] = useState(false);// Indicates whether to show caught Pokemon
 
-  const ITEMS_PER_PAGE = 20;
+  const ITEMS_PER_PAGE = 20;// Number of items to fetch per page
 
+   // Function to fetch Pokemon data from the API
   const fetchPokemons = async (page) => {
     try {
       const response = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=${ITEMS_PER_PAGE}&offset=${(page - 1) * ITEMS_PER_PAGE}`);
       const data = await response.json();
-      setTotalPages(Math.ceil(data.count / ITEMS_PER_PAGE));
+      setTotalPages(Math.ceil(data.count / ITEMS_PER_PAGE));// Calculate total pages based on total count from API
 
       const pokemonDetails = await Promise.all(
         data.results.map(async (pokemon) => {
@@ -53,6 +56,7 @@ export default function Home() {
     }
   };
 
+  // Function to fetch details of a specific Pokemon
   const fetchPokemonDetails = async (name) => {
     try {
       const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${name.toLowerCase()}`);
@@ -66,28 +70,35 @@ export default function Home() {
     }
   };
 
+    // Event handler for search button click
   const handleSearch = () => {
     fetchPokemonDetails(searchTerm);
   };
 
+  // Event handler for clicking on a Pokemon card
   const handleCardClick = (name) => {
     fetchPokemonDetails(name);
   };
 
+    // Event handler for catching a Pokemon
   const handleCatchPokemon = (pokemon) => {
     catchPokemon(pokemon);
   };
 
+    // Toggles the display of caught Pokemon
   const toggleCaughtPokemon = () => {
     setShowCaughtPokemon(!showCaughtPokemon);
   };
 
+    // Fetches Pokemon data when the page changes
   useEffect(() => {
     fetchPokemons(page);
   }, [page]);
 
+    // JSX content of the component
   return (
     <div className="flex flex-col items-center space-y-4">
+      //Search bar and buttons
       {!showCaughtPokemon && (
         <div className="flex w-full max-w-sm items-center space-x-2">
           <Input
@@ -101,6 +112,7 @@ export default function Home() {
         </div>
       )}
 
+      //Displaying caught Pokemon 
       {showCaughtPokemon && (
         <div className="w-full max-w-sm mt-4 relative">
           <h2 className="text-2xl font-semibold">Caught Pokemons</h2>
@@ -125,7 +137,7 @@ export default function Home() {
         </div>
       )}
 
-
+      //Displaying available Pokemon
       {!showCaughtPokemon && (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {pokemonData.map((pokemon) => (
@@ -144,6 +156,7 @@ export default function Home() {
         </div>
       )}
 
+      //Pagination
       <Pagination className="flex justify-center mt-4">
         <PaginationContent>
           <PaginationPrevious onClick={() => setPage(page - 1)} disabled={page === 1} />

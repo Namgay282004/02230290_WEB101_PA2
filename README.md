@@ -1,36 +1,63 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# React Pokedex
+
+This is a Pokedex web application built using React, showcasing various core concepts and principles of the framework.
+
+## Overview
+
+This Pokedex web app allows users to explore information about different Pokemon. Users can search for Pokemon by name, catch them, and view detailed information including their types, abilities, and stats.
+
+## Features
+
+- **Search**: Users can search for Pokemon by name using the search bar.
+- **Pagination**: The list of Pokemon is paginated to improve user experience.
+- **Pokemon Details**: Detailed information about each Pokemon, including name, type, abilities, and stats, is displayed.
+- **Catch Pokemon**: Users can "catch" Pokemon and maintain a list of caught Pokemon.
+- **Zustand State Management**: Zustand library is used for managing the state of caught Pokemon.
+- **API Integration**: Integration with the PokeAPI to fetch data about specific Pokemon.
+- **Responsive Design**: The app is designed to be responsive and work well on various devices and screen sizes.
+- **Deployment**: The app can be deployed to a hosting platform for public access.
 
 ## Getting Started
 
-First, run the development server:
+1. Clone the repository:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+   ```bash
+   git clone <repository-url>
+   cd <project-directory>
+
+2. Install dependencies:
+
+    ```
+    npm install
+    ```
+
+3. Run the development server:
+
+    ```
+    npm run dev
+    ```
+
+4. Open [Link](http://localhost:3000) in your browser to view the app.
+
+## Technologies Used
+- React
+- Zustand
+- PokeAPI
+- Tailwind CSS (for styling)
+- Next.js (for server-side - rendering, if applicable)
+
+## Directory Structure
+```
+.
+├── components/            # React components
+│   ├── ui/                # UI components (Button, Card, Input, etc.)
+├── stores/                # Zustand store for state management
+├── pages/                 # Next.js pages
+│   └── index.js           # Main page component
+├── public/                # Static assets
+└── README.md              # Project README file
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Contributing
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Contributions to improve the project are welcome! Feel free to open issues for feature requests or bug reports, and submit pull requests to contribute changes.
